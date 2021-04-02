@@ -22,6 +22,7 @@ db = SQLAlchemy(app)
 login_manager = LoginManager()
 login_manager.login_view = 'login'
 login_manager.init_app(app)
+login_manager.login_message = u'Пожалуйста, введите учетные данные.'
 
 socketio = SocketIO(app, async_mode='eventlet')
 
@@ -126,4 +127,4 @@ def get_parameters(message):
 
 
 if __name__ == '__main__':
-    socketio.run(app, host="0.0.0.0", debug=True)
+    socketio.run(app, debug=True)
