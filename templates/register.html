@@ -1,0 +1,80 @@
+{% extends "layouts/base-fullscreen.html" %}
+
+{% block title %} Register {% endblock %} 
+
+<!-- Specific Page CSS goes HERE  -->
+{% block stylesheets %}{% endblock stylesheets %}
+
+{% block content %}
+    <!-- Main content -->
+    <section>
+        <div class="container d-flex flex-column">
+            <div class="row align-items-center justify-content-center min-vh-100">
+                <div class="col-md-6 col-lg-5 col-xl-5 py-6 py-md-0">
+                    <div class="card shadow zindex-100 mb-0">
+                        <div class="card-body px-md-5 py-5">
+                            <div class="mb-5">
+                                <h6 class="h3">
+                                    Регистрация</h6>
+                                <p class="text-muted mb-0">
+                                    <small>Уже есть аккаунт?</small>
+                                    <a href="/login" class="small font-weight-bold">Войти</a>
+                                </p>
+                            </div>
+                              {% with messages = get_flashed_messages() %}
+                                {% if messages %}
+                                  <div class="notification is-danger">
+                                      {{ messages[0] }}
+                                  </div>
+                                {% endif %}
+                              {% endwith %}
+                            <span class="clearfix"></span>
+
+                            <form action="/signup" method="post">
+                                <div class="form-group">
+                                    <label class="form-control-label">Логин</label>
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text"><i data-feather="user"></i></span>
+                                        </div>
+                                        <input type="email" class="form-control" id="name" name="name" placeholder="Придумайте логин">
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="form-control-label">Email</label>
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text"><i data-feather="mail"></i></span>
+                                        </div>
+                                        <input type="email" class="form-control" id="email" name="email" placeholder="name@example.com">
+                                    </div>
+                                </div>
+
+                                <div class="form-group mb-0">
+                                    <div class="d-flex align-items-center justify-content-between">
+                                        <div>
+                                            <label class="form-control-label">Пароль</label>
+                                        </div>
+                                    </div>
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text"><i data-feather="key"></i></span>
+                                        </div>
+                                        <input type="password" class="form-control" id="password" name="password" placeholder="Введите надежный пароль">
+                                    </div>
+                                </div>
+                                <div class="mt-4">
+                                    <button type="submit" class="btn btn-block btn-primary">Зарегистрироваться</button></div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+{% endblock content %}
+
+<!-- Specific Page JS goes HERE  -->
+{% block javascripts %}{% endblock javascripts %}

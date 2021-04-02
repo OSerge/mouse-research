@@ -1,0 +1,75 @@
+{% extends "layouts/base.html" %}
+
+{% block content %}
+  <div class="container">
+    <div class="row justify-content-center">
+        <div class="col-auto">
+        <table class="table table-responsive">
+          <thead>
+            <tr>
+              <th scope="col">timestamp</th>
+              <th scope="col">X_coord</th>
+              <th scope="col">Y_coord</th>
+              <th scope="col">user_id</th>
+              <th scope="col">session_num</th>
+            </tr>
+          </thead>
+          <tbody id="table-body">
+            <tr>
+              <td id="timestamp-td"></td>
+              <td id="X-td"></td>
+              <td id="Y-td"></td>
+              <td>{{ user_id }}</td>
+              <td>{{ session_num }}</td>
+            </tr>
+          </tbody>
+        </table>
+        </div>
+    </div>
+  </div>
+{% endblock %}
+
+{% block javascripts %}
+  <script src="../static/js/socket.io.min.js"></script>
+  <script>
+      // Инициализируем объект вебсокета
+      let socketAddr = 'http://' + document.domain + (location.port ? ':' + location.port : '');
+      let socket = io.connect(socketAddr);
+      socket.emit('connection');
+
+      socket.on('msg', function (data) {
+            console.log(data.msg);
+        });
+
+      let cursorX = -1;
+      let cursorY = -1;
+      document.onmousemove = function (event) {
+          cursorX = event.pageX;
+          cursorY = event.pageY;
+      }
+      // Замерять положение курсора каждые 20 мс
+      let checkInt = setInterval(sendCursorData, 20);
+
+      let user_id = {{ user_id }};
+      let session_num = {{ session_num }};
+      function sendCursorData() {
+          $('#timestamp-td')[0].innerHTML = Date.now();
+          $('#X-td')[0].innerHTML = cursorX;
+          $('#Y-td')[0].innerHTML = cursorY;
+          //console.log(JSON.stringify(message));
+          let message = {
+              'data': `${Date.now()},${cursorX},${cursorY}\n`,
+              'user_id': user_id,
+              'session_num': session_num
+          };
+          socket.emit("push", JSON.stringify(message));
+      }
+
+      setTimeout(() => {
+          clearInterval(checkInt);
+      }, 60000); // Прервать сбор данных через 1 минуту
+
+  </script>
+{% endblock %}
+
+

@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  {% block head %}
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+{#    <script src="../static/jquery-3.4.1.slim.min.js"></script>#}
+    <script src="../static/js/bootstrap.bundle.min.js"></script>
+    <script src="../static/js/socket.io.min.js"></script>
+    <script src="../static/js/jquery.slim.min.js"></script>
+
+    {% block styles %}
+    <!-- Bootstrap CSS -->
+      <link href="../static/css/bootstrap.min.css" rel="stylesheet">
+{#      <link rel="stylesheet" href="../static/bootstrap-4.4.1.min.css">#}
+{#      <link rel="stylesheet" href="../static/main.css">#}
+    {% endblock %}
+
+    <title>
+      {% block title %}
+        {% if title %}{{ title }}{% else %}Mouse Research{% endif %}
+      {% endblock %}
+    </title>
+  {% endblock %}
+</head>
+
+<body>
+  {% block navbar %}
+    <nav class="navbar navbar-dark bg-dark">
+      <div class="container">
+        <a href="/"><div class="navbar-brand">Mouse Research</div></a>
+      </div>
+    </nav>
+  {% endblock %}
+    <div class="container custom-container">
+      <div class="row">
+        {% with messages = get_flashed_messages() %}
+          {% if messages %}
+            {% for message in messages %}
+              <div class="alert alert-info" role="alert">{{ message }}</div>
+            {% endfor %}
+          {% endif %}
+        {% endwith %}
+      </div>
+
+      {% block content %}{% endblock %}
+      </div>
+    </div>
+
+  {% block scripts %}{% endblock %}
+
+</body>

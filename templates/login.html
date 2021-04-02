@@ -1,0 +1,73 @@
+{% extends "layouts/base-fullscreen.html" %}
+
+{% block title %} Login {% endblock %} 
+
+<!-- Specific Page CSS goes HERE  -->
+{% block stylesheets %}{% endblock stylesheets %}
+
+{% block content %}
+
+    <!-- Main content -->
+    <section>
+        <div class="container d-flex flex-column">
+            <div class="row align-items-center justify-content-center min-vh-100">
+                <div class="col-md-6 col-lg-5 col-xl-5 py-6 py-md-0">
+                    <div class="card shadow zindex-100 mb-0">
+                        <div class="card-body px-md-5 py-5">
+                            <div class="mb-5">
+                                <h6 class="h3">
+                                    Вход в аккаунт
+                                </h6>
+                            </div>
+                            {% with messages = get_flashed_messages() %}
+                              {% if messages %}
+                                  <div class="notification is-danger">
+                                      {{ messages[0] }}
+                                  </div>
+                              {% endif %}
+                            {% endwith %}
+                            <span class="clearfix"></span>
+                            <form method="POST" action="/login">
+
+                                <div class="form-group">
+                                    <label class="form-control-label">Email</label>
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text"><i data-feather="user"></i></span>
+                                        </div>
+                                        <input type="email" class="form-control" id="input-login" name="login" placeholder="Введите логин или почту">
+                                    </div>
+                                </div>
+                                
+                                <div class="form-group mb-0">
+                                    <div class="d-flex align-items-center justify-content-between">
+                                        <div>
+                                            <label class="form-control-label">Пароль</label>
+                                        </div>
+                                    </div>
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text"><i data-feather="key"></i></span>
+                                        </div>
+                                        <input type="password" class="form-control" id="input-password" name="password" placeholder="Пароль">
+                                    </div>
+                                </div>
+
+                                <div class="mt-4">
+                                    <button type="submit" class="btn btn-block btn-primary">Войти</button></div>
+                            </form>
+                        </div>
+{#                        <div class="card-footer px-md-5 text-center">#}
+{#                            &copy; <a target="_blank" href="https://webpixels.io/?ref=appseed">Webpixels</a> #}
+{#                            - coded by <a target="_blank" href="https://appseed.us/">AppSeed</a> .#}
+{#                        </div>#}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+{% endblock content %}
+
+<!-- Specific Page JS goes HERE  -->
+{% block javascripts %}{% endblock javascripts %}
